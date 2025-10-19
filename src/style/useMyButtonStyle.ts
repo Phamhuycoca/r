@@ -5,7 +5,8 @@ import { useStyleRegister } from "@ant-design/cssinjs";
 export const useMyButtonStyle = (prefix: string = "my-btn") => {
   const { useToken } = theme;
   const { token, theme: globalTheme } = useToken();
-
+  console.log('globalTheme',globalTheme);
+  
   const wrapSSR = useStyleRegister(
     { theme: globalTheme, token, path: [prefix] },
     () => ({
