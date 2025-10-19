@@ -1,33 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export const useHideOnScroll = () => {
-  const [hidden, setHidden] = useState(false);
-  let lastScrollY = 0;
+    const [hidden, setHidden] = useState(false);
+    let lastScrollY = 0;
 
-  useEffect(() => {
-    let ticking = false;
+    useEffect(() => {
+        let ticking = false;
 
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
 
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          if (currentScrollY > lastScrollY && currentScrollY > 80) {
-            setHidden(true); // scroll down -> hide
-          } else {
-            setHidden(false); // scroll up -> show
-          }
-          lastScrollY = currentScrollY;
-          ticking = false;
-        });
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    if (currentScrollY > lastScrollY && currentScrollY > 80) {
+                        setHidden(true); // scroll down -> hide
+                    } else {
+                        setHidden(false); // scroll up -> show
+                    }
+                    lastScrollY = currentScrollY;
+                    ticking = false;
+                });
 
-        ticking = true;
-      }
-    };
+                ticking = true;
+            }
+        };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
-  return hidden;
+    return hidden;
 };
