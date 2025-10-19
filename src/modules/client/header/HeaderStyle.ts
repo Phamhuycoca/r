@@ -143,6 +143,94 @@ export const useHeaderStyle = (prefix: string = 'header-custom') => {
             borderBottomColor: 'transparent',
             borderBottomWidth: 0,
         },
+
+        [`.${prefix}-sticky .ant-menu-light .ant-menu-submenu-selected>.ant-menu-submenu-title`]: {
+            color: 'white',
+            fontWeight: 600,
+        },
+
+        [`.${prefix}-sticky .ant-drawer .ant-drawer-body`]: {
+            background: '#cfcfcd none repeat scroll 0 0 !important',
+        },
+
+        [`.${prefix}-drawer-search .ant-drawer-mask`]: {
+            position: 'absolute',
+            inset: 0,
+            zIndex: 1000,
+            background: 'transparent !important',
+            pointerEvents: 'auto',
+        },
+
+        [`.${prefix}-drawer-search .ant-drawer-body`]: {
+            background: '#cfcfcd none repeat scroll 0 0 !important',
+        },
+
+        [`.${prefix}-drawer-search .ant-input`]: {
+            borderRadius: '0px',
+        },
+
+        [`.${prefix}-drawer-search .ant-btn-lg`]: {
+            borderRadius: '0px',
+        },
+
+        [`.${prefix}-drawer-search .ant-btn`]: {
+            borderRadius: '0px',
+        },
+
+        [`.${prefix}-drawer-search .ant-input-outlined:hover`]: {
+            borderTopColor: '#d9d9d9',
+            borderLeftColor: '#d9d9d9',
+            borderBottomColor: '#d9d9d9',
+            borderRightColor: '#d9d9d9',
+            backgroundColor: '#ffffff',
+        },
+
+        [`.${prefix}-drawer-search .ant-input-outlined:focus-within`]: {
+            borderColor: '#d9d9d9 !important',
+            boxShadow: 'none',
+            outline: 0,
+            backgroundColor: '#ffffff',
+        },
+
+        // [`.${prefix}-drawer-search-close-icon:hover svg`]: {
+        //     animation: 'spin-scale 0.4s ease-in-out',
+        //     cursor: 'pointer',
+        // },
+
+        // '@keyframes spin-scale': {
+        //     '0%': { transform: 'scale(1) rotate(0deg)' },
+        //     '50%': { transform: 'rotate(180deg) scale(1.5)' },
+        //     '100%': { transform: 'scale(1) rotate(360deg)' },
+        // },
+        // Icon mặc định
+        [`.${prefix}-drawer-search-close-icon svg`]: {
+            display: 'inline-block',
+            transform: 'scale(1) rotate(0deg)',
+            transition: 'transform 0.25s ease-out',
+        },
+
+        // Khi hover → xoay tới 360° + scale lên (giữ nguyên)
+        [`.${prefix}-drawer-search-close-icon:hover svg`]: {
+            animation: 'spin-in 0.4s ease-in-out forwards',
+            color: 'red',
+        },
+
+        // Khi rời hover → xoay ngược về 0° + scale về 1
+        [`.${prefix}-drawer-search-close-icon svg:not(:hover)`]: {
+            animation: 'spin-out 0.4s ease-in-out forwards',
+        },
+
+        // Keyframes xoay tới 360° + scale lên
+        '@keyframes spin-in': {
+            '0%': { transform: 'scale(1) rotate(0deg)' },
+            '100%': { transform: 'scale(1.3) rotate(360deg)' },
+        },
+
+        // Keyframes xoay ngược lại về trạng thái ban đầu
+        '@keyframes spin-out': {
+            '0%': { transform: 'scale(1.3) rotate(360deg)' },
+            '100%': { transform: 'scale(1) rotate(0deg)' },
+        },
     }));
 
     return { wrapSSR, prefix };

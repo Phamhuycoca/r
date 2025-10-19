@@ -7,6 +7,7 @@ import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import { useState } from 'react';
 import { SearchOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
+import DrawerSearch from './drawerSearch.tsx';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -20,14 +21,14 @@ const items: MenuItem[] = [
                 label: 'Nội thất phòng khác',
                 children: [
                     { label: 'Option 1', key: 'setting:1' },
-                    { label: 'Option 2', key: 'setting:2' },
+                    { label: 'Option 2', key: 'setting:22' },
                 ],
             },
             {
                 type: 'group',
                 label: 'Tủ quần áo',
                 children: [
-                    { label: 'Option 3aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', key: 'setting:3' },
+                    { label: 'Option 3aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', key: 'setting:33' },
                     { label: 'Option 4', key: 'setting:4' },
                 ],
             },
@@ -35,8 +36,8 @@ const items: MenuItem[] = [
                 type: 'group',
                 label: 'Nội thất phòng ngủ',
                 children: [
-                    { label: 'Option 3', key: 'setting:3' },
-                    { label: 'Option 4', key: 'setting:4' },
+                    { label: 'Option 3', key: 'setting:323' },
+                    { label: 'Option 4', key: 'setting:41' },
                 ],
             },
             {
@@ -44,7 +45,7 @@ const items: MenuItem[] = [
                 label: 'Nội thất nhà bếp',
                 children: [
                     { label: 'Option 3', key: 'setting:3' },
-                    { label: 'Option 4', key: 'setting:4' },
+                    { label: 'Option 4', key: 'setting:42' },
                 ],
             },
         ],
@@ -70,49 +71,77 @@ const Header = () => {
     const { wrapSSR, prefix } = useHeaderStyle();
     const isSticky = useStickyHeader();
     const [current, setCurrent] = useState('mail');
-    console.log('isSticky', isSticky);
+    const [isShowSearch, setIsShowSearch] = useState(false);
 
     const onClick: MenuProps['onClick'] = (e) => {
         console.log('click ', e);
         setCurrent(e.key);
     };
+    const onShowSearch = () => {
+        setIsShowSearch(true);
+        console.log('Show search');
+    };
     return wrapSSR(
-        <HeaderComponent
-            className={`${prefix} ${isSticky ? `${prefix}-sticky` : ''}`}
-            style={{
-                height: '100%',
-                position: 'sticky',
-                top: 0,
-                zIndex: 1000,
-                transition: 'all 0.3s ease',
-            }}
-        >
-            <div className="flex h-full w-full items-center justify-between">
-                <Row className="w-full" justify={'space-evenly'}>
-                    <Col span={2}>
-                        <div className="demo-logo">
-                            <img src={logo} alt="logo" />
-                        </div>
-                    </Col>
-                    <Col span={18}>
-                        <Menu
-                            className={`${prefix}-menu`}
-                            onClick={onClick}
-                            selectedKeys={[current]}
-                            mode="horizontal"
-                            items={items}
-                        />
-                    </Col>
-                    <Col span={2}>
-                        <Row className="cursor-pointer h-full" justify="space-around" gutter={[16, 16]}>
-                            <SearchOutlined />
-                            <UserOutlined />
-                            <ShoppingCartOutlined />
+        <>
+            {!isShowSearch && (
+                <HeaderComponent
+                    className={`${prefix} ${isSticky ? `${prefix}-sticky` : ''}`}
+                    style={{
+                        height: '100%',
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: 1000,
+                        transition: 'all 0.3s ease',
+                    }}
+                >
+                    <div className="flex h-full w-full items-center justify-between">
+                        <Row className="w-full" justify={'space-evenly'}>
+                            <Col span={2}>
+                                <div className="demo-logo">
+                                    <img src={logo} alt="logo" />
+                                </div>
+                            </Col>
+                            <Col span={18}>
+                                <Menu
+                                    className={`${prefix}-menu`}
+                                    onClick={onClick}
+                                    selectedKeys={[current]}
+                                    mode="horizontal"
+                                    items={items}
+                                />
+                            </Col>
+                            <Col span={2}>
+                                <Row className="cursor-pointer h-full" justify="space-around" gutter={[16, 16]}>
+                                    <SearchOutlined
+                                        onClick={onShowSearch}
+                                        style={{
+                                            fontSize: '18px',
+                                        }}
+                                    />
+                                    <ShoppingCartOutlined
+                                        style={{
+                                            fontSize: '18px',
+                                        }}
+                                    />
+                                    <UserOutlined
+                                        style={{
+                                            fontSize: '18px',
+                                        }}
+                                    />
+                                </Row>
+                            </Col>
                         </Row>
-                    </Col>
-                </Row>
-            </div>
-        </HeaderComponent>,
+                    </div>
+                </HeaderComponent>
+            )}
+            <DrawerSearch
+                className={`${prefix}-drawer-search`}
+                open={isShowSearch}
+                onClose={() => {
+                    setIsShowSearch(!isShowSearch);
+                }}
+            />
+        </>,
     );
 };
 
