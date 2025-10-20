@@ -1,4 +1,4 @@
-import { Col, Layout, Row } from 'antd';
+import { Col, Input, Layout, Row } from 'antd';
 import { useHeaderStyle } from './HeaderStyle.ts';
 import { useStickyHeader } from '../../../hooks/useStickyHeader.tsx';
 import logo from '../../../assets/logo.webp';
@@ -6,7 +6,7 @@ const { Header: HeaderComponent } = Layout;
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import { useState } from 'react';
-import { SearchOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
+import { CloseOutlined, SearchOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
 import DrawerSearch from './drawerSearch.tsx';
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -83,64 +83,76 @@ const Header = () => {
     };
     return wrapSSR(
         <>
-            {!isShowSearch && (
-                <HeaderComponent
-                    className={`${prefix} ${isSticky ? `${prefix}-sticky` : ''}`}
-                    style={{
-                        height: '100%',
-                        position: 'sticky',
-                        top: 0,
-                        zIndex: 1000,
-                        transition: 'all 0.3s ease',
-                    }}
-                >
-                    <div className="flex h-full w-full items-center justify-between">
-                        <Row className="w-full" justify={'space-evenly'}>
-                            <Col span={2}>
-                                <div className="demo-logo">
-                                    <img src={logo} alt="logo" />
-                                </div>
-                            </Col>
-                            <Col span={18}>
-                                <Menu
-                                    className={`${prefix}-menu`}
-                                    onClick={onClick}
-                                    selectedKeys={[current]}
-                                    mode="horizontal"
-                                    items={items}
-                                />
-                            </Col>
-                            <Col span={2}>
-                                <Row className="cursor-pointer h-full" justify="space-around" gutter={[16, 16]}>
-                                    <SearchOutlined
-                                        onClick={onShowSearch}
-                                        style={{
-                                            fontSize: '18px',
-                                        }}
+                    <HeaderComponent
+                        className={`${prefix} ${isSticky ? `${prefix}-sticky` : ''}`}
+                        style={{
+                            height: '100%',
+                            position: 'sticky',
+                            top: 0,
+                            zIndex: 1000,
+                            transition: 'all 0.3s ease',
+                        }}
+                    >
+                        <div className="flex h-full w-full items-center justify-between">
+                            <Row className="w-full" justify={'space-evenly'}>
+                                <Col span={2}>
+                                    <div className="demo-logo">
+                                        <img src={logo} alt="logo" />
+                                    </div>
+                                </Col>
+                                <Col span={18}>
+                                    {
+                                        !isShowSearch ? <Menu
+                                        className={`${prefix}-menu`}
+                                        onClick={onClick}
+                                        selectedKeys={[current]}
+                                        mode="horizontal"
+                                        items={items}
+                                    />:
+                                    <div className='h-full flex items-center'>
+                                        <Input.Search
+                                        size="large"
+                                        style={{ width: '100%' }}
                                     />
-                                    <ShoppingCartOutlined
-                                        style={{
-                                            fontSize: '18px',
-                                        }}
-                                    />
-                                    <UserOutlined
-                                        style={{
-                                            fontSize: '18px',
-                                        }}
-                                    />
-                                </Row>
-                            </Col>
-                        </Row>
-                    </div>
-                </HeaderComponent>
-            )}
-            <DrawerSearch
+                                    </div>
+                                    }
+                                </Col>
+                                <Col span={2}>
+                                    <Row className="cursor-pointer h-full" justify="space-around" gutter={[16, 16]}>
+                                        { !isShowSearch ?
+                                            <SearchOutlined
+                                            onClick={onShowSearch}
+                                            style={{
+                                                fontSize: '18px',
+                                            }}
+                                            />
+                                            :
+                                            <CloseOutlined onClick={()=>{
+                                                setIsShowSearch(false);
+                                            }} />}
+                                        <ShoppingCartOutlined
+                                            style={{
+                                                fontSize: '18px',
+                                            }}
+                                        />
+                                        <UserOutlined
+                                            style={{
+                                                fontSize: '18px',
+                                            }}
+                                        />
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </div>
+                    </HeaderComponent>
+          
+            {/* <DrawerSearch
                 className={`${prefix}-drawer-search`}
                 open={isShowSearch}
                 onClose={() => {
                     setIsShowSearch(!isShowSearch);
                 }}
-            />
+            /> */}
         </>,
     );
 };
