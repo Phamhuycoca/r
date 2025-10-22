@@ -1,6 +1,5 @@
 import BannerSection from '../BannerSection/BannerSection';
 
-
 const Main = () => {
     return (
         <div
