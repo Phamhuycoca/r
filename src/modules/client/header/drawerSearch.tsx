@@ -20,9 +20,17 @@ const DrawerSearch: React.FC<PropsDrawerSearch> = ({ open, onClose, className })
             onClose={onClose}
             open={open}
         >
-            <Row justify="center" align="middle" gutter={16}>
-                <Col span={14} className="h-full">
+            <Row justify="center" align="middle" gutter={16} className="h-full">
+                <Col
+                    span={14}
+                    className="h-full"
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}
+                >
                     <Input.Search
+                        placeholder="Nhập thông tin cần tìm kiếm"
                         rootClassName={className}
                         onSearch={onSearch}
                         size="large"

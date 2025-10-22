@@ -191,6 +191,9 @@ export const useHeaderStyle = (prefix: string = 'header-custom') => {
             outline: 0,
             backgroundColor: '#ffffff',
         },
+        [`.${prefix}-drawer-search .ant-input-wrapper ant-input-group`]: {
+            display: 'flex',
+        },
 
         // [`.${prefix}-drawer-search-close-icon:hover svg`]: {
         //     animation: 'spin-scale 0.4s ease-in-out',
