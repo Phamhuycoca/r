@@ -28,20 +28,19 @@ export default function BannerSection() {
             align="stretch"
             style={{
                 height: 400,
-                marginTop: 16,
             }}
         >
             {/* Cột trái: Menu danh mục */}
             <Col xs={24} md={6}>
                 <div
                     style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: '100%',
                         border: '1px solid #f0f0f0',
                         borderRadius: 4,
                         overflow: 'hidden',
                         backgroundColor: '#fff',
-                        height: '100%',
-                        display: 'flex',
-                        flexDirection: 'column',
                     }}
                 >
                     {/* Header */}
@@ -54,6 +53,7 @@ export default function BannerSection() {
                             display: 'flex',
                             alignItems: 'center',
                             gap: 8,
+                            flexShrink: 0, // ngăn header bị co lại
                         }}
                     >
                         <MenuOutlined />
@@ -61,69 +61,73 @@ export default function BannerSection() {
                     </div>
 
                     {/* Menu */}
-                    <Menu
-                        mode="inline"
-                        style={{
-                            borderInlineEnd: 'none',
-                            flex: 1,
-                        }}
-                        items={categories.map((item) => ({
-                            key: item,
-                            label: item,
-                        }))}
-                    />
+                    <div style={{ flex: 1, overflowY: 'auto' }}>
+                        <Menu
+                            mode="inline"
+                            style={{
+                                borderInlineEnd: 'none',
+                                height: '100%',
+                            }}
+                            items={categories.map((item) => ({
+                                key: item,
+                                label: item,
+                            }))}
+                        />
+                    </div>
                 </div>
             </Col>
 
             {/* Cột phải: Banner Carousel */}
             <Col xs={24} md={18}>
-                <Carousel
-                    autoplay
-                    dots={true}
-                    style={{ height: '100%', border: '1px solid #f0f0f0', borderRadius: 4, overflow: 'hidden' }}
+                <div
+                    style={{
+                        height: '100%',
+                        borderRadius: 4,
+                        overflow: 'hidden',
+                        border: '1px solid #f0f0f0',
+                    }}
                 >
-                    {banners.map((banner, i) => (
-                        <div
-                            key={i}
-                            style={{
-                                height: 400,
-                                backgroundColor: '#f9f9f9',
-                                borderRadius: 4,
-                                overflow: 'hidden',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                padding: '0 40px',
-                            }}
-                        >
-                            <img
-                                src={banner.image}
-                                alt={banner.title1}
+                    <Carousel autoplay dots={true} style={{ height: '100%' }}>
+                        {banners.map((banner, i) => (
+                            <div
+                                key={i}
                                 style={{
-                                    height: '90%',
-                                    objectFit: 'contain',
+                                    height: '400px',
+                                    backgroundColor: '#f9f9f9',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    padding: '0 40px',
                                 }}
-                            />
-
-                            <div style={{ textAlign: 'right' }}>
-                                <h1 style={{ fontSize: 48, margin: 0 }}>{banner.title1}</h1>
-                                <h1 style={{ fontSize: 48, color: '#ff4d4f', margin: 0 }}>{banner.title2}</h1>
-                                <a
-                                    href="#"
+                            >
+                                <img
+                                    src={banner.image}
+                                    alt={banner.title1}
                                     style={{
-                                        marginTop: 20,
-                                        display: 'inline-block',
-                                        textTransform: 'uppercase',
-                                        color: '#000',
-                                        fontWeight: 500,
+                                        height: '90%',
+                                        objectFit: 'contain',
                                     }}
-                                >
-                                    Shop Now —
-                                </a>
+                                />
+                                <div style={{ textAlign: 'right' }}>
+                                    <h1 style={{ fontSize: 48, margin: 0 }}>{banner.title1}</h1>
+                                    <h1 style={{ fontSize: 48, color: '#ff4d4f', margin: 0 }}>{banner.title2}</h1>
+                                    <a
+                                        href="#"
+                                        style={{
+                                            marginTop: 20,
+                                            display: 'inline-block',
+                                            textTransform: 'uppercase',
+                                            color: '#000',
+                                            fontWeight: 500,
+                                        }}
+                                    >
+                                        Shop Now —
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    ))}
-                </Carousel>
+                        ))}
+                    </Carousel>
+                </div>
             </Col>
         </Row>
     );
